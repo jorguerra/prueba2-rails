@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <% @tasks.each_slice(3) do |row| %>
+      <% row.each do |task| %>
+        <div class="col task">
+          <%= image_tag task.picture , class: 'img-fluid' %>
+          <h4><%= task.title %></h4>
+          <br>
+          <% unless current_user.has_task?(task) %>
+          <%= link_to 'Listo', complete_path(task: task), method: :post, class: 'btn btn-primary' %>
+          <% else %>
+          <%= link_to 'NO Listo', uncomplete_path(task: task), method: :delete, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+    <% end %>
+    <div class="w-100"></div>
+  <% end %>
+  </div>
+</div>
+
+<style media="screen">
+ img{
+   max-height: 200px
+ }
+ .col.task{
+   border: 1px solid lightblue;
+   margin-bottom:2em;
+   text-align:center;
+   padding: 0.8em 0
+ }
+</style>
